@@ -19,11 +19,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
-      <header className="p-4 bg-blue-600 text-white flex justify-between">
-        <h1>Personal Study Schedule</h1>
+      <header className="p-4 bg-blue-600 text-white flex justify-between items-center shadow-md">
+        <h1 className="text-2xl font-bold">Personal Study Schedule</h1>
         <button
           onClick={() => setIsDarkMode(!isDarkMode)}
-          className="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded"
+          className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors shadow-sm"
         >
           {isDarkMode ? 'Light Mode' : 'Dark Mode'}
         </button>

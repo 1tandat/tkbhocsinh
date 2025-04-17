@@ -45,7 +45,6 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
       ...form,
     };
 
-    // Kiểm tra xung đột lịch học, bỏ qua môn học đang chỉnh sửa
     const otherSubjects = editingSubject
       ? subjects.filter((s) => s.id !== editingSubject.id)
       : subjects;
@@ -55,10 +54,8 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
     }
 
     if (editingSubject) {
-      // Cập nhật môn học
       setSubjects(subjects.map((s) => (s.id === editingSubject.id ? newSubject : s)));
     } else {
-      // Thêm môn học mới
       setSubjects([...subjects, newSubject]);
     }
     navigate('/');
@@ -67,25 +64,27 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h2 className="text-2xl mb-4">{editingSubject ? 'Edit Subject' : 'Add Subject'}</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="p-6 max-w-lg mx-auto">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
+        {editingSubject ? 'Edit Lesson' : 'Add Lesson'}
+      </h2>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label htmlFor="name" className="block">
-            Subject Name
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Lesson Name
           </label>
           <input
             id="name"
             type="text"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
           />
         </div>
         <div>
-          <label htmlFor="instructor" className="block">
+          <label htmlFor="instructor" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Instructor
           </label>
           <input
@@ -93,32 +92,34 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
             type="text"
             value={form.instructor}
             onChange={(e) => setForm({ ...form, instructor: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
           />
         </div>
         <div>
-          <label className="block">Days</label>
-          {daysOfWeek.map((day) => (
-            <label key={day} className="inline-flex items-center mr-4">
-              <input
-                id={`day-${day}`}
-                type="checkbox"
-                checked={form.days.includes(day)}
-                onChange={(e) => {
-                  const updatedDays = e.target.checked
-                    ? [...form.days, day]
-                    : form.days.filter((d) => d !== day);
-                  setForm({ ...form, days: updatedDays });
-                }}
-                className="mr-1"
-              />
-              <span>{day}</span>
-            </label>
-          ))}
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Days</label>
+          <div className="flex flex-wrap gap-3 mt-2">
+            {daysOfWeek.map((day) => (
+              <label key={day} className="inline-flex items-center">
+                <input
+                  id={`day-${day}`}
+                  type="checkbox"
+                  checked={form.days.includes(day)}
+                  onChange={(e) => {
+                    const updatedDays = e.target.checked
+                      ? [...form.days, day]
+                      : form.days.filter((d) => d !== day);
+                    setForm({ ...form, days: updatedDays });
+                  }}
+                  className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">{day}</span>
+              </label>
+            ))}
+          </div>
         </div>
         <div>
-          <label htmlFor="startTime" className="block">
+          <label htmlFor="startTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Start Time
           </label>
           <input
@@ -126,12 +127,12 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
             type="time"
             value={form.startTime}
             onChange={(e) => setForm({ ...form, startTime: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
           />
         </div>
         <div>
-          <label htmlFor="endTime" className="block">
+          <label htmlFor="endTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             End Time
           </label>
           <input
@@ -139,12 +140,12 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
             type="time"
             value={form.endTime}
             onChange={(e) => setForm({ ...form, endTime: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
           />
         </div>
         <div>
-          <label htmlFor="room" className="block">
+          <label htmlFor="room" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Room
           </label>
           <input
@@ -152,12 +153,12 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
             type="text"
             value={form.room}
             onChange={(e) => setForm({ ...form, room: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
           />
         </div>
         <div>
-          <label htmlFor="color" className="block">
+          <label htmlFor="color" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Color
           </label>
           <input
@@ -165,14 +166,14 @@ function AddSubjectPage({ subjects, setSubjects }: AddSubjectPageProps) {
             type="color"
             value={form.color}
             onChange={(e) => setForm({ ...form, color: e.target.value })}
-            className="w-full p-2 border rounded"
+            className="w-full h-10 p-1 border border-gray-300 dark:border-gray-600 rounded-lg"
           />
         </div>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors shadow-sm"
         >
-          {editingSubject ? 'Update Subject' : 'Add Subject'}
+          {editingSubject ? 'Update Lesson' : 'Add Lesson'}
         </button>
       </form>
     </div>
