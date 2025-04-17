@@ -23,10 +23,17 @@ cd your-repo-name
 ```
 2. Install Dependencies
 Install the required dependencies using npm:
+
 npm install
 3. Run the Development Server
 Start the development server:
+
 npm run dev
-4. Open the Application
+4. Run the Development Server
+Start the development server:
+
+npm run dev
+5. Open the Application
 Open your browser and navigate to:
+
 http://localhost:5173
